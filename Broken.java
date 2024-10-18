@@ -8,8 +8,6 @@ public class Broken
      }
 
      public void controlRobot(IRobot robot) {
-
-          int direction;	
           int randno;
           
           direction = IRobot.AHEAD;
