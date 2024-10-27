@@ -20,47 +20,47 @@ import uk.ac.warwick.dcs.maze.logic.IRobot;
 public class Ex2
 {
 
-	private int randomDirection() {
+  private int randomDirection() {
 
-		return switch ((int)(Math.random()*4)) { //Return the corresponding direction based on the value of Math.random()*4
-			case 0 -> IRobot.LEFT;
-			case 1 -> IRobot.RIGHT;
-			case 2 -> IRobot.BEHIND;
-			case 3 -> IRobot.AHEAD;
-			default-> -1;
-		};
+    return switch ((int)(Math.random()*4)) { //Return the corresponding direction based on the value of Math.random()*4
+      case 0 -> IRobot.LEFT;
+      case 1 -> IRobot.RIGHT;
+      case 2 -> IRobot.BEHIND;
+      case 3 -> IRobot.AHEAD;
+      default-> -1;
+    };
 
-	}
+  }
 
-	private void logPrinter(IRobot robot, int direction) {
+  private void logPrinter(IRobot robot, int direction) {
 
-		int wallNum = 0;
-		for (int i = IRobot.AHEAD; i <= IRobot.LEFT; i++) if (robot.look(i) == IRobot.WALL) wallNum++; //Count the number of walls around the current position
-		System.out.println( "I'm going " +
-			switch (direction) {
-				case IRobot.LEFT	-> "left ";
-				case IRobot.RIGHT	-> "right ";
-				case IRobot.BEHIND	-> "backwards ";
-				case IRobot.AHEAD	-> "forward ";
-				default				-> "Error!!!";
-			}+
-			switch (wallNum) {
-				case 0	-> "at a crossroads";
-				case 1	-> "at a junction";
-				case 2	-> "down a corridor";
-				case 3	-> "at a deadend";
-				default	-> "Error!!!";
-		});
+    int wallNum = 0;
+    for (int i = IRobot.AHEAD; i <= IRobot.LEFT; i++) if (robot.look(i) == IRobot.WALL) wallNum++; //Count the number of walls around the current position
+    System.out.println( "I'm going " +
+      switch (direction) {
+        case IRobot.LEFT	-> "left ";
+        case IRobot.RIGHT	-> "right ";
+        case IRobot.BEHIND	-> "backwards ";
+        case IRobot.AHEAD	-> "forward ";
+        default				-> "Error!!!";
+      }+
+      switch (wallNum) {
+        case 0	-> "at a crossroads";
+        case 1	-> "at a junction";
+        case 2	-> "down a corridor";
+        case 3	-> "at a deadend";
+        default	-> "Error!!!";
+    });
 
-	}
+  }
 
-	public void controlRobot(IRobot robot) {
+  public void controlRobot(IRobot robot) {
 
-		int direction = IRobot.AHEAD;
-		while ((robot.look(direction) == IRobot.WALL)||((int)(Math.random()*8) == 0)) direction = randomDirection(); //Reselect direction when the current direction is a wall or Math.random()*8 == 0
-		logPrinter(robot,direction);
-		robot.face(direction); //Face the direction
+    int direction = IRobot.AHEAD;
+    while ((robot.look(direction) == IRobot.WALL)||((int)(Math.random()*8) == 0)) direction = randomDirection(); //Reselect direction when the current direction is a wall or Math.random()*8 == 0
+    logPrinter(robot,direction);
+    robot.face(direction); //Face the direction
 
-	}
+  }
 
 }

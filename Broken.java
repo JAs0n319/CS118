@@ -1,5 +1,4 @@
 
-import java.nio.ReadOnlyBufferException;
 import uk.ac.warwick.dcs.maze.logic.IRobot;
 
 public class Broken {
@@ -24,6 +23,15 @@ public class Broken {
     }
   }
 
+  private int lookHeading(IRobot robot, int direction) { //direction should equal to IRobot.NORTH/SOUTH/WEST/EAST
+    return robot.look( switch (direction - robot.getHeading()) {
+      case -3,1 -> IRobot.RIGHT;
+      case -2,2 -> IRobot.BEHIND;
+      case -1,3 -> IRobot.LEFT;
+      default   -> IRobot.AHEAD;
+    });
+  }
+
   public void controlRobot(IRobot robot) {
     int randno;
     int direction = IRobot.AHEAD;
@@ -41,9 +49,7 @@ public class Broken {
       }
     } while (robot.look(direction) == IRobot.WALL);
 
-    System.out.println(isTargetEast(robot.getLocation().x,robot.getTargetLocation().x));
-    System.out.println(isTargetNorth(robot.getLocation().y,robot.getTargetLocation().y));
-
+    System.out.println(lookHeading(robot, IRobot.NORTH));
     robot.face(direction); //Face the direction
   }
 
