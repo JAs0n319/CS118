@@ -1,5 +1,5 @@
 /*
-Ex1
+Ex2
 The value of Math.random()*8 will be randomly between 0 and 7.99.
 So when I convert it to int it will be a number between 0 and 7 with equal probability.
 

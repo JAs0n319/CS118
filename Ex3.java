@@ -1,7 +1,17 @@
+/*
+Ex3
+My headingController uses a hierarchical design.
+The direction of the wall is not selectable.
+The direction opposite to the target is the second choice.
+The target direction is the first choice.
+The robot moves closer to the target with each step.
+Because of this, if it needs to move in a direction away from the target, it will get stuck.
+Based on my design, I will set the previously traveled path as the second choice.
+*/
 
 import uk.ac.warwick.dcs.maze.logic.IRobot;
 
-public class Broken {
+public class Ex3 {
 
   private byte isTargetNorth(IRobot robot) {
     if (robot.getLocation().y == robot.getTargetLocation().y) return 0;
@@ -54,6 +64,7 @@ public class Broken {
 
   public void controlRobot(IRobot robot) {
     int heading = headingController(robot);
+    
     ControlTest.test(heading, robot);
     robot.setHeading(heading);
   }
