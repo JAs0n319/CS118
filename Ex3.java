@@ -13,16 +13,35 @@ import uk.ac.warwick.dcs.maze.logic.IRobot;
 
 public class Ex3 {
 
+  /**
+   * Determine if the target is north of the robot
+   * 
+   * @param robot Robot object
+   * @return 1 = North / -1 = South / 0 = same latitudee
+   */
   private byte isTargetNorth(IRobot robot) {
     if (robot.getLocation().y == robot.getTargetLocation().y) return 0;
     else return (byte)(robot.getLocation().y > robot.getTargetLocation().y?1:-1);
   }
 
+  /**
+   * Determine if the target is East of the robot
+   * 
+   * @param robot Robot object
+   * @return 1 = East / -1 = West / 0 = same latitudee
+   */
   private byte isTargetEast(IRobot robot) {
     if (robot.getLocation().x == robot.getTargetLocation().x) return 0;
     else return (byte)(robot.getLocation().x > robot.getTargetLocation().x?-1:1);
   }
 
+  /**
+   * Determine the status of the specified direction
+   * 
+   * @param robot Robot object
+   * @param direction Absolute direction
+   * @return Status
+   */
   private int lookHeading(IRobot robot, int direction) {
     return robot.look(switch (direction - robot.getHeading()) {
       case -3,1 -> IRobot.RIGHT;
@@ -32,6 +51,12 @@ public class Ex3 {
     });
   }
 
+  /**
+   * Determine which direction to move to get closer to the target without hitting a wall
+   * 
+   * @param robot Robot object
+   * @return Direction
+   */
   private int headingController(IRobot robot) {
     /*
      * When the value of direction equal to 0 means it's a wall

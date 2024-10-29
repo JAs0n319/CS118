@@ -9,6 +9,11 @@ import uk.ac.warwick.dcs.maze.logic.IRobot;
 
 public class Ex1 {
 
+  /**
+   * Generate a random direction
+   * 
+   * @return Random direction
+   */
 	private int randomDirection() {
     return switch ((int) (Math.random() * 4)) { //Return the corresponding direction based on the value of Math.random()*4
       case 0 -> IRobot.LEFT;
@@ -19,6 +24,12 @@ public class Ex1 {
     };
   }
 
+  /**
+   * Print logs
+   * 
+   * @param robot Robot object
+   * @param direction Direction
+   */
   private void logPrinter(IRobot robot, int direction) {
     int wallNum = 0;
 

@@ -17,9 +17,13 @@ I think it would be a disruptive change if the search could be done logically, s
 
 import uk.ac.warwick.dcs.maze.logic.IRobot;
 
-public class Ex2
-{
+public class Ex2 {
 
+  /**
+   * Generate a random direction
+   * 
+   * @return Random direction
+   */
   private int randomDirection() {
 
     return switch ((int)(Math.random()*4)) { //Return the corresponding direction based on the value of Math.random()*4
@@ -32,6 +36,12 @@ public class Ex2
 
   }
 
+  /**
+   * Print logs
+   * 
+   * @param robot Robot object
+   * @param direction Direction
+   */
   private void logPrinter(IRobot robot, int direction) {
 
     int wallNum = 0;
