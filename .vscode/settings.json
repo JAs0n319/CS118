@@ -4,5 +4,7 @@
     ],
     "java.project.referencedLibraries": [
         "c:\\Users\\goodj\\Documents\\CS118\\maze-environment.jar"
-    ]
+    ],
+    "stm32-for-vscode.openOCDPath": false,
+    "stm32-for-vscode.armToolchainPath": false
 }

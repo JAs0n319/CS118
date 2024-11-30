@@ -3,13 +3,12 @@
  * I use a linked list to store the initial direction.
  * Nodes in the linked list are removed once the junction is fully traversed.
  * This approach minimizes memory usage and eliminates the need to store the x and y coordinates of the junctions.
- * This program will fail to complete the Loopy Generator maze because it removes nodes, which can lead to an out-of-bounds error.
  */
 
 import java.util.LinkedList;
 import uk.ac.warwick.dcs.maze.logic.IRobot;
 
-public class Ex2 {
+public class Explorer {
   
   private int pollRum = 0; // Number of step
   private boolean backtrackMode = false;
@@ -92,6 +91,7 @@ public class Ex2 {
   private int deadEnd(IRobot robot) {
     int direction = IRobot.BEHIND;
     backtrackMode = true;
+
     if (robot.look(direction) == IRobot.WALL) // Dealing with the opening wall
       for (int i = IRobot.AHEAD; i <= IRobot.LEFT; i++)
         if (robot.look(i) != IRobot.WALL)
@@ -125,11 +125,11 @@ public class Ex2 {
    * @return The direction the robot should be face to
    */
   private int junctionAndCrossroad(IRobot robot) {
-    if ((backtrackMode)&&(passageExits(robot) == 0)) { // If this junction fully traversed
+    if ((backtrackMode)&&(passageExits(robot) == 0)) {
       int direction = backtrackDirection.getLast();
-      backtrackDirection.removeLast(); // Remove this node
+      backtrackDirection.removeLast();
 
-      return switch (robot.getHeading() - direction) { // Convert absolute directions to relative directions
+      return switch (robot.getHeading() - direction) { // Get the opposite direction of the way that came from
         case 1, -3 -> IRobot.LEFT;
         case 2, -2 -> IRobot.BEHIND;
         case 3, -1 -> IRobot.RIGHT;
@@ -137,24 +137,25 @@ public class Ex2 {
       };
     }
 
-    else if (backtrackMode) { // If this junction is not a new one
+    else if (backtrackMode) {
       int directions[] = new int[]{IRobot.AHEAD, IRobot.RIGHT, IRobot.BEHIND, IRobot.LEFT};
 
-      for (int i = IRobot.AHEAD; i <= IRobot.LEFT; i++) // Remove unconsidered directions
+      for (int i = IRobot.AHEAD; i <= IRobot.LEFT; i++)
         if (robot.look(i) != IRobot.PASSAGE)
           directions[i-IRobot.AHEAD] = 0;
       
       backtrackMode = false;
       return randomDirection(directions);
     }
-    else { // If this junction is a new one
+    else {
       int directions[] = new int[]{IRobot.AHEAD, IRobot.RIGHT, IRobot.BEHIND, IRobot.LEFT};
 
-      for (int i = IRobot.AHEAD; i <= IRobot.LEFT; i++) // Remove unconsidered directions
+      for (int i = IRobot.AHEAD; i <= IRobot.LEFT; i++)
         if (robot.look(i) != IRobot.PASSAGE)
           directions[i-IRobot.AHEAD] = 0;
 
-      backtrackDirection.add(oppositeDirection(robot.getHeading())); // Add new node
+      System.out.println("111");
+      backtrackDirection.add(oppositeDirection(robot.getHeading()));
       return randomDirection(directions);
     }
   }
