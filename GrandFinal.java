@@ -1,6 +1,6 @@
 import uk.ac.warwick.dcs.maze.logic.IRobot;
 
-public class Ex3 {
+public class GrandFinal {
   private RobotData robotData = new RobotData();
   private int pollRun = 0;
 
@@ -11,6 +11,12 @@ public class Ex3 {
     if ((robot.getRuns() == 0) && (pollRun == 0))
       robotData.init();
     
+    if (robot.getRuns() != 0) {
+      direction = robotData.getPath(robot.getLocation().x, robot.getLocation().y);
+      robot.setHeading(direction);
+      return;
+    }
+
     this.pollRun++;
 
     switch (exits) {
@@ -22,10 +28,11 @@ public class Ex3 {
 
     robotData.updateLocation(robot.getLocation().x, robot.getLocation().y);
     robot.face(direction);
+    robotData.recordPath(robot.getLocation().x, robot.getLocation().y, robot.getHeading());
   }
 
   public void reset() {
-    robotData.init();
+    robotData.reset();
     //System.out.println("Reset");
   }
 
@@ -135,10 +142,18 @@ public class Ex3 {
 class RobotData {
   private static int MAX_WIDTH = 505;
   private int mazeMap[][];
+  private int mazePath[][];
   private int lastX;
   private int lastY;
 
   public void init() {
+    this.mazeMap = new int[RobotData.MAX_WIDTH][RobotData.MAX_WIDTH];
+    this.mazePath = new int[RobotData.MAX_WIDTH][RobotData.MAX_WIDTH];
+    this.lastX = 0;
+    this.lastY = 0;
+  }
+
+  public void reset() {
     this.mazeMap = new int[RobotData.MAX_WIDTH][RobotData.MAX_WIDTH];
     this.lastX = 0;
     this.lastY = 0;
@@ -165,10 +180,18 @@ class RobotData {
     return this.lastY;
   }
 
+  public int getPath(int x, int y) {
+    return this.mazePath[x][y];
+  }
+
   public int getMark(int x, int y) {
     if ((x > RobotData.MAX_WIDTH)||(y > RobotData.MAX_WIDTH)) {
       System.err.println("X or Y out of Bounds");
     }
     return this.mazeMap[x][y];
+  }
+
+  public void recordPath(int x, int y, int orientation) {
+    this.mazePath[x][y] = orientation;
   }
 }
