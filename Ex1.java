@@ -29,7 +29,7 @@ import uk.ac.warwick.dcs.maze.logic.IRobot;
 
 public class Ex1 {
   
-  private int pollRum = 0; // Number of step
+  private int pollRun = 0; // Number of step
   private RobotData robotData = new RobotData(); // Junction data
 
   /**
@@ -41,10 +41,10 @@ public class Ex1 {
     int exits = nonwallExits(robot); // Number of nonwall Exits
     int direction = IRobot.AHEAD;
 
-    if ((robot.getRuns() == 0)&&(pollRum == 0)) // Initialize junction data
+    if ((robot.getRuns() == 0)&&(pollRun == 0)) // Initialize junction data
       robotData.initRobotData();
 
-    pollRum++; // Number of step += 1
+    pollRun++; // Number of step += 1
 
     switch (exits) {
       case 1 -> direction = deadEnd(robot);
